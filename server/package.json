@@ -5,8 +5,8 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
+    "postinstall": "npx prisma generate",
+    "start": "prisma generate && node server.js",
     "server": "nodemon server.js"
   },
   "keywords": [],
@@ -18,7 +18,8 @@
     "@prisma/client": "^7.5.0",
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "inngest": "^4.0.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.14",
