@@ -22,12 +22,12 @@ const Layout = () => {
       </div>
     );
 
-    
+
   return (
     <div className="flex bg-white dark:bg-zinc-950 text-gray-900 dark:text-slate-100">
-      <Sidebar />
+      <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen}/>
       <div className="flex-1 flex flex-col h-screen">
-        <Navbar />
+        <Navbar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen}/>
         <div className="flex-1 h-full p-6 xl:p-10 xl:px-16 overflow-y-scroll">
           <Outlet />
         </div>
