@@ -13,7 +13,7 @@ import { NavLink } from "react-router-dom";
 const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const menuItems = [
     { name: "Dashboard", href: "/", icon: LayoutDashboardIcon },
-    { name: "Projets", href: "/projects", icon: FolderOpenIcon },
+    { name: "Projects", href: "/projects", icon: FolderOpenIcon },
     { name: "Team", href: "/team", icon: UsersIcon },
   ];
 
@@ -48,7 +48,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
                 key={item.name}
                 className={({ isActive }) =>
                   `flex items-center gap-3 py-2 px-4 text-gray-800 dark:text-zinc-100
-                        cursor-pointer rounded transition ${isActive ? "bg-gray-100 dark:bg-zinc-900 dark:bg-gradient-to-br dark:from-zinc-900 dark:to-zinc-800/50 dark:ring-zinc-800" : "hover:bg-gray-50 dark:hover:bg-zinc-800/60"}`
+                        cursor-pointer rounded transition ${isActive ? "bg-gray-100 dark:bg-zinc-900 dark:bg-gradient-to-br dark:from-zinc-800 dark:to-zinc-800/50 dark:ring-zinc-800" : "hover:bg-gray-50 dark:hover:bg-zinc-800/60"}`
                 }
               >
                 <item.icon size={16} />
