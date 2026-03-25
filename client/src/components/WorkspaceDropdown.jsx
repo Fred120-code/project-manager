@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setCurrentWorkspace } from "../features/worksoaceSlice";
+import { setCurrentWorkspace } from "../features/workspaceSlice";
 import { dummyWorkspaces } from "../assets/assets";
 import { useEffect, useRef, useState } from "react";
 import { Check, ChevronDown, Plus } from "lucide-react";
