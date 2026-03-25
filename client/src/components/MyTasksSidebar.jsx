@@ -98,7 +98,7 @@ const MyTasksSidebar = () => {
                         {task.title}
                       </p>
                       <p className="text-xs text-gray-500 dark:text-zinc-500 lowercase">
-                        {task.status.replace("_"," ")}
+                        {task.status.replace("_", " ")}
                       </p>
                     </div>
                   </div>
