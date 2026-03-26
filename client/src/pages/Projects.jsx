@@ -64,8 +64,12 @@ const Projects = () => {
           text-white hover:opacity-90 transition"
         >
           <Plus className="size-4 mr-2" />
+          New Project
         </button>
-        {/* <CreateProjectDialog /> */}
+        <CreateProjectDialog
+          isDialogOpen={isDialogOpen}
+          setIsDialogOpen={setIsDialogOpen}
+        />
       </div>
 
       {/* Search and Filters */}
@@ -159,7 +163,7 @@ const Projects = () => {
           </div>
         ) : (
           filteredProjects.map((project) => (
-            <ProjectCard key={project.id} project={project}/>
+            <ProjectCard key={project.id} project={project} />
           ))
         )}
       </div>
