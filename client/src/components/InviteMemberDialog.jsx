@@ -63,7 +63,7 @@ const InviteMemberDialog = ({ isDialogOpen, setIsDialogOpen }) => {
                   setFormData({ ...formData, email: e.target.value })
                 }
                 placeholder="Enter email address"
-                className="pl-10 mt-1 w-full rounded borde border-zinc-300 dark:border-zinc-700
+                className="pl-10 mt-1 w-full rounded border border-zinc-300 dark:border-zinc-700
                  dark:bg-zinc-900 text-zinc-900 dark:text-zinc-200 text-sm placeholder-zinc-400 
                  dark:placeholder-zinc-500 py-2 focus:outline-none focus:border-blue-500"
                 required
