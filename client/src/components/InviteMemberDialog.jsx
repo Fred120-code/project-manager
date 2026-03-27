@@ -47,7 +47,7 @@ const InviteMemberDialog = ({ isDialogOpen, setIsDialogOpen }) => {
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Email */}
-          <div>
+          <div className="space-y-2">
             <label
               htmlFor="email"
               className="text-sm font-medium text-zinc-900 dark:text-zinc-200"
@@ -55,7 +55,7 @@ const InviteMemberDialog = ({ isDialogOpen, setIsDialogOpen }) => {
               Email Address
             </label>
             <div className="relative">
-              <Mail className="absolute left-3 top-1/2 -translate-1/2 text-zinc-500 dark:text-zinc-400 w-4 h-4" />
+              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 dark:text-zinc-400 w-4 h-4" />
               <input
                 type="text"
                 value={formData.email}
