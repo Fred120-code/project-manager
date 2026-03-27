@@ -50,76 +50,10 @@ const Team = () => {
         >
           <UserPlus className="w-4 h-4 mr-2" /> Invite Member
         </button>
-
-        {/* <InviteMemberDialog /> */}
-      </div>
-
-      {/* Stats Cards */}
-      <div className="flex flex-wrap gap-4">
-        {/* Total Members */}
-        <div
-          className="max-sm:w-full dark:bg-gradient-to-br dark:from-zinc-800/70 dark:to-zinc-900/50
-        border border-gray-300 dark:border-zinc-800 rounded-lg p-6"
-        >
-          <div className="flex items-center justify-between gap-8 md:gap-22">
-            <div>
-              <p className="text-sm text-gray-500 dark:text-zinc-400">
-                Total Members
-              </p>
-              <p className="text-xl font-bold text-gray-900 dark:text-white">
-                {users.length}
-              </p>
-            </div>
-            <div className="p-3 rounded-xl bg-blue-100 dark:bg-blue-500/10">
-              <UsersIcon className="size-4 text-blue-500 dark:text-blue-200" />
-            </div>
-          </div>
-        </div>
-
-        {/* Active Projects */}
-        <div
-          className="max-sm:w-full dark:bg-gradient-to-br dark:from-zinc-800/70 dark:to-zinc-900/50
-        border border-gray-300 dark:border-zinc-800 rounded-lg p-6"
-        >
-          <div className="flex items-center justify-between gap-8 md:gap-22">
-            <div>
-              <p className="text-sm text-gray-500 dark:text-zinc-400">
-                Active Projects
-              </p>
-              <p className="text-xl font-bold text-gray-900 dark:text-white">
-                {
-                  projects.filter(
-                    (p) => p.status !== "CANCELLED" && p.status !== "COMPLETED",
-                  ).length
-                }
-              </p>
-            </div>
-
-            <div className="p-3 rounded-xl bg-emerald-100 dark:bg-emerald-500/10">
-              <Activity className="size-4 text-emerald-500 dark:text-emerald-200" />
-            </div>
-          </div>
-        </div>
-
-        {/* Total Tasks */}
-        <div
-          className="max-sm:w-full dark:bg-gradient-to-br dark:from-zinc-800/70 dark:to-zinc-900/50
-        border border-gray-300 dark:border-zinc-800 rounded-lg p-6"
-        >
-          <div className="flex items-center justify-between gap-8 md:gap-22">
-            <div>
-              <p className="text-sm text-gray-500 dark:text-zinc-400">
-                Total Tasks
-              </p>
-              <p className="text-xl font-bold text-gray-900 dark:text-white">
-                {tasks.length}
-              </p>
-            </div>
-            <div className="p-3 rounded-xl bg-purple-100 dark:bg-purple-500/10">
-              <Shield className="size-4 text-purple-500 dark:text-purple-200" />
-            </div>
-          </div>
-        </div>
+        <InviteMemberDialog
+          isDialogOpen={isDialogOpen}
+          setIsDialogOpen={setIsDialogOpen}
+        />
       </div>
     </div>
   );
