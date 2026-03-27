@@ -15,6 +15,10 @@
   button {
     cursor: pointer;
   }
+  
+  ::-webkit-scrollbar {
+    width: 0.5rem;
+  }
 
   ::-webkit-scrollbar-track {
     width: 0.5rem;
