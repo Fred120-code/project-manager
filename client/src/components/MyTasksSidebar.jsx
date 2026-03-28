@@ -84,7 +84,7 @@ const MyTasksSidebar = () => {
               myTasks.map((task, index) => (
                 <Link
                   key={index}
-                  to={`/taskDetails?projectId=${task.projectId}&taksId=${task.id}`}
+                  to={`/taskDetails?projectId=${task.projectId}&taskId=${task.id}`}
                   className="w-full rounded-lg transition-all duration-200 text-gray-700
                     dark:text-zinc-300 hover:bg-gray-100 dark:hover:bg-zinc-800
                     hover:text-black dark:hover:text-white"
