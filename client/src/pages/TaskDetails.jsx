@@ -173,6 +173,89 @@ const TaskDetails = () => {
           </div>
         </div>
       </div>
+
+      {/* Right: Task + Project Info */}
+      <div className="w-full lg:w-1/2 flex flex-col gap-6">
+        {/* Task Info */}
+        <div
+          className="p-5 rounded-md bg-white dark:bg-zinc-900 border border-gray-300
+         dark:border-zinc-800"
+        >
+          <div className="mb-3">
+            <h1 className="text-lg font-medium text-gray-900 dark:text-zinc-100">
+              {task.title}
+            </h1>
+            <div className="flex flex-wrap gap-2 mt-2">
+              <span
+                className="px-2 py-0.5 rounded bg-zinc-200 dark:bg-zinc-700 
+              text-zinc-900 dark:text-zinc-300 text-xs"
+              >
+                {task.status}
+              </span>
+              <span
+                className="px-2 py-0.5 rounded bg-blue-200 dark:bg-blue-900 
+              text-blue-900 dark:text-blue-300 text-xs"
+              >
+                {task.type}
+              </span>{" "}
+              <span
+                className="px-2 py-0.5 rounded bg-green-200 dark:bg-emerald-900 
+              text-green-900 dark:text-emerald-300 text-xs"
+              >
+                {task.priority}
+              </span>
+            </div>
+          </div>
+
+          {task.description && (
+            <p className="text-sm text-gray-600 dark:text-zinc-400 leading-relaxed mb-4">
+              {task.description}
+            </p>
+          )}
+
+          <hr className="border-zinc-200 dark:border-zinc-700 my-3" />
+
+          <div
+            className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm text-gray-700
+           dark:text-zinc-300"
+          >
+            <div className="flex items-center gap-2">
+              <img
+                src={task.assignee?.image}
+                alt="avatar"
+                className="size-5 rounded-full"
+              />
+              {task.assignee?.name || "Unsassigned"}
+            </div>
+            <div className="flex items-center gap-2">
+              <CalendarIcon className="size-4 text-gray-500 dark:text-zinc-500" />
+              Due : {format(new Date(task.due_date), "dd MMM yyy")}
+            </div>
+          </div>
+        </div>
+
+        {/* Project Info */}
+        {project && (
+          <div
+            className="p-4 rounded-md bg-white dark:bg-zinc-900 text-zinc-700
+            dark:text-zinc-200 border border-gray-300 dark:border-zinc-800"
+          >
+            <p className="text-xl font-medium mb-4">Project Details</p>
+            <h2 className="text-gray-900 dark:text-zinc-100 flex items-center gap-2">
+              <PenIcon className="size-4" /> {project.name}
+            </h2>
+            <p className="text-xs mt-3">
+              Project Start Date:{" "}
+              {format(new Date(project.start_date), "dd MMM yyy")}
+            </p>
+            <div className="flex flex-wrap gap-4 text-sm text-gray-500 dark:text-zinc-400 mt-3">
+              <span>Status: {project.status}</span>
+              <span>Status: {project.priority}</span>
+              <span>Status: {project.progress}%</span>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
