@@ -146,6 +146,66 @@ const ProjectDetails = () => {
         ))}
       </div>
 
+      {/* Tabs */}
+      <div>
+        <div
+          className=" inline-flex flex-wrap max-sm:grid grid-cols-3 gap-2 border 
+         border-zinc-200 dark:border-zinc-800 rounded overflow-hidden"
+        >
+          {[
+            { key: "tasks", label: "Tasks", icon: FileStackIcon },
+            { key: "analytics", label: "Analytics", icon: BarChart3Icon },
+            { key: "calendar", label: "Calendar", icon: CalendarIcon },
+            { key: "settings", label: "Settings", icon: SettingsIcon },
+          ].map((tabItem) => (
+            <button
+              key={tabItem.key}
+              onClick={() => {
+                setActiveTab(tabItem.key);
+                setSearchParams({
+                  id: id,
+                  tab: tabItem.key,
+                });
+              }}
+              className={`flex items-center gap-2 px-4 py-2 text-sm transition-all 
+                ${
+                  activeTab === tabItem.key
+                    ? "bg-zinc-100 dark:bg-zinc-800/80"
+                    : "hover:bg-zinc-50 dark:hover:bg-zinc-700"
+                }`}
+            >
+              <tabItem.icon className="size-3.5" />
+              {tabItem.label}
+            </button>
+          ))}
+        </div>
+        <div className="mt-6">
+          {activeTab === "tasks" && (
+            <div className="dark:bg-zinc-900/40 rounded max-w-6xl">
+              <ProjectTasks tasks={tasks} />
+            </div>
+          )}
+
+          {activeTab === "calendar" && (
+            <div className="dark:bg-zinc-900/40 rounded max-w-6xl">
+              <ProjectCalendar tasks={tasks} />
+            </div>
+          )}
+
+          {activeTab === "analytics" && (
+            <div className="dark:bg-zinc-900/40 rounded max-w-6xl">
+              <ProjectAnalytics tasks={tasks} project={project} />
+            </div>
+          )}
+
+          {activeTab === "settings" && (
+            <div className="dark:bg-zinc-900/40 rounded max-w-6xl">
+              <ProjectSettings project={project} />
+            </div>
+          )}
+        </div>
+      </div>
+
       {/* Create Task Modal */}
       {showCreateTask && (
         <CreateTaskDialog
