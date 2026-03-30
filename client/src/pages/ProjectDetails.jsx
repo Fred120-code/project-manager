@@ -67,7 +67,52 @@ const ProjectDetails = () => {
       </div>
     );
   }
-  return <div>ProjectDetails</div>;
+  return (
+    <div className="space-y-5 max-w-6xl mx-auto text-zinc-900 dark:text-white">
+      {/* Header */}
+      <div
+        className="flex max-md:flex-col gap-4 flex-wrap items-start 
+        justify-between max-w-6xl"
+      >
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => navigate("/projects")}
+            className="p-1 rounded hover:bg-zinc-200 dark:bg-zinc-700 text-zinc-600
+             dark:text-zinc-400"
+          >
+            <ArrowLeftIcon className="size-4" />
+          </button>
+          <div className="flex items-center gap-3">
+            <h1 className="text-xl font-medium">{project.name}</h1>
+            <span
+              className={`px-2 py-1 rounded text-xs capitalize ${statusColors[project.status]}`}
+            >
+              {project.status.replace("_", " ")}
+            </span>
+          </div>
+        </div>
+        <button
+          onClick={() => setShowCreateTask(true)}
+          className="flex items-center gap-2 px-5 py-2 text-sm rounded bg-gradient-to-br
+           from-blue-500 to-blue-600 text-white"
+        >
+          <PlusIcon className="size-4" />
+          New Task
+        </button>
+      </div>
+
+      {/* Info Cards */}
+
+      {/* Create Task Modal */}
+      {showCreateTask && (
+        <CreateTaskDialog
+          showCreateTask={showCreateTask}
+          setShowCreateTask={setShowCreateTask}
+          projectId={id}
+        />
+      )}
+    </div>
+  );
 };
 
 export default ProjectDetails;
