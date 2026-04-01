@@ -157,7 +157,11 @@ const ProjectTasks = ({ tasks }) => {
                  outline-none px-3 py-1 rounded text-sm text-zinc-900 dark:text-zinc-300"
             >
               {options[name].map((opt, idx) => (
-                <option key={idx} className="dark:text-zinc-700">
+                <option
+                  key={idx}
+                  className="dark:text-zinc-700"
+                  value={opt.value}
+                >
                   {opt.label}
                 </option>
               ))}
