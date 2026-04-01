@@ -5,6 +5,7 @@ import {
   MessageSquare,
   Square,
   Trash,
+  X,
   XIcon,
   Zap,
 } from "lucide-react";
@@ -13,7 +14,7 @@ import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { deleteTask, updateTasks } from "../features/workspaceSlice";
+import { deleteTask, updateTask } from "../features/workspaceSlice";
 
 const typeIcons = {
   BUG: { icon: Bug, color: "text-red-600 dark:text-red-400" },
@@ -84,7 +85,7 @@ const ProjectTasks = ({ tasks }) => {
 
       let updatedTask = structuredClone(tasks.find((t) => t.id === taskId));
       updatedTask.status = newStatus;
-      dispatch(updateTasks(updatedTask));
+      dispatch(updateTask(updatedTask));
 
       toast.dismissAll();
       toast.success("Task status updated successfully");
@@ -113,7 +114,91 @@ const ProjectTasks = ({ tasks }) => {
       toast.error(error?.response?.data?.message || error.message);
     }
   };
-  return <div>ProjectTasks</div>;
+  return (
+    <div>
+      {/* Filter */}
+      <div className="flex flex-wrap gap-4 mb-4">
+        {["status", "type", "priority", "assignee"].map((name) => {
+          const options = {
+            status: [
+              { label: "All Statuses", value: "" },
+              { label: "To Do", value: "TODO" },
+              { label: "In Progress", value: "IN_PROGRESS" },
+              { label: "Done", value: "DONE" },
+            ],
+            type: [
+              { label: "All Types", value: "" },
+              { label: "Task", value: "TASK" },
+              { label: "Bug", value: "BUG" },
+              { label: "Feature", value: "FEATURE" },
+              { label: "Improvement", value: "IMPROVEMENT" },
+              { label: "Other", value: "OTHER" },
+            ],
+            priority: [
+              { label: "All Priorities", value: "" },
+              { label: "Low", value: "LOW" },
+              { label: "Medium", value: "MEDIUM" },
+              { label: "High", value: "HIGH" },
+            ],
+            assignee: [
+              { label: "All Assignees", value: "" },
+              ...assigneeList.map((n) => ({ label: n, value: n })),
+            ],
+          };
+
+          return (
+            <select
+              name={name}
+              id={name}
+              onChange={handleFilterChange}
+              className="border not-dark:bg-white border-zinc-300 dark:border-zinc-800
+                 outline-none px-3 py-1 rounded text-sm text-zinc-900 dark:text-zinc-300"
+            >
+              {options[name].map((opt, idx) => (
+                <option key={idx} className="dark:text-zinc-700">
+                  {opt.label}
+                </option>
+              ))}
+            </select>
+          );
+        })}
+
+        {/* Reset filters */}
+        {(filters.status ||
+          filters.type ||
+          filters.priority ||
+          filters.assignee) && (
+          <button
+            type="button"
+            onClick={() =>
+              setFilters({
+                status: "",
+                type: "",
+                priority: "",
+                assignee: "",
+              })
+            }
+            className="px-3 py-1 flex items-center gap-2 rounded bg-gradient-to-br 
+              from-purple-400 to-purple-500 text-zinc-100 dark:text-zinc-200 text-sm
+               transition-colors"
+          >
+            <XIcon className="size-3" /> Reset
+          </button>
+        )}
+        {selectedTasks.length > 0 && (
+          <button
+            type="button"
+            onClick={handleDelete}
+            className="px-3 py-1 flex items-center gap-2 rounded bg-gradient-to-br 
+              from-indigo-400 to-indigo-500 text-zinc-100 dark:text-zinc-200 text-sm
+               transition-colors"
+          >
+            <Trash className="size-3" /> Delete
+          </button>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default ProjectTasks;
