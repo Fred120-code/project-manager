@@ -235,15 +235,110 @@ const ProjectTasks = ({ tasks }) => {
                     const { background, prioritycolor } =
                       priorityTexts[task.priority] || {};
 
-                      return (
-                        <tr>
-                          
-                        </tr>
-                      )
+                    return (
+                      <tr
+                        key={task.id}
+                        onClick={() =>
+                          navigate(
+                            `/taskDetails?projectId=${task.projectId}&taskId=${task.id}`,
+                          )
+                        }
+                        className=" border-t border-zinc-300 dark:border-zinc-800 group hover:bg-zinc-50
+                           dark:hover:bg-zinc-700 transition-all cursor-pointer"
+                      >
+                        <td
+                          onClick={(e) => e.stopPropagation()}
+                          className="pl-2 pr-1"
+                        >
+                          <input
+                            type="checkbox"
+                            className="size-3 accent-zinc-600 dark:accent-zinc-500"
+                            onChange={() =>
+                              selectedTasks.includes(task.id)
+                                ? setSelectedTasks(
+                                    selectedTasks.filter((i) => i !== task.id),
+                                  )
+                                : setSelectedTasks((prev) => [...prev, task.id])
+                            }
+                            checked={selectedTasks.includes(task.id)}
+                          />
+                        </td>
+                        <td className="px-4 py-2 pl-0">{task.title}</td>
+                        <td>
+                          <div className="flex items-center gap-2">
+                            {Icon && <Icon className={`size-4 ${color}`} />}
+                            <span className={`uppercase text-xs ${color}`}>
+                              {task.type}
+                            </span>
+                          </div>
+                        </td>
+                        <td className="px-4 py-2">
+                          <span
+                            className={`text-xs px-2 py-1 rounded ${background} ${prioritycolor}`}
+                          >
+                            {task.priority}
+                          </span>
+                        </td>
+                        <td
+                          onClick={(e) => e.stopPropagation()}
+                          className="px-4 py-2"
+                        >
+                          <select
+                            name="status"
+                            onChange={(e) =>
+                              handleStatusChange(task.id, e.target.value)
+                            }
+                            value={task.status}
+                            className="group-hover:ring ring-zinc-100 outline-none px-2 pr-4 py-1 rounded text-sm
+                             text-zinc-900 dark:text-zinc-200 cursor-pointer"
+                          >
+                            <option
+                              value="TODO"
+                              className=" dark:text-zinc-700"
+                            >
+                              To Do
+                            </option>
+                            <option
+                              value="IN_PROGRESS"
+                              className=" dark:text-zinc-700"
+                            >
+                              In Progress
+                            </option>
+                            <option
+                              value="DONE"
+                              className=" dark:text-zinc-700"
+                            >
+                              Done
+                            </option>
+                          </select>
+                        </td>
+                        <td className="px-4 py-2">
+                          <div className="flex items-center gap-2">
+                            <img
+                              src={task.assignee?.image}
+                              alt="avatar"
+                              className="size-5 rounded-full"
+                            />
+                            {task.assignee?.name || "-"}
+                          </div>
+                        </td>
+                        <td className="px-4 py-2">
+                          <div className="flex items-center gap-1 text-zinc-600 dark:text-zinc-400">
+                            <CalendarIcon className="size-4" />
+                            {format(new Date(task.due_date), "dd MMM yy")}
+                          </div>
+                        </td>
+                      </tr>
+                    );
                   })
                 ) : (
                   <tr>
-                    <td>No tasks found for the selected filters.</td>
+                    <td
+                      colSpan={7}
+                      className="text-center text-zinc-500 dark:text-zinc-400 py-6"
+                    >
+                      No tasks found for the selected filters.
+                    </td>
                   </tr>
                 )}
               </tbody>
