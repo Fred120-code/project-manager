@@ -114,6 +114,7 @@ const ProjectTasks = ({ tasks }) => {
       toast.error(error?.response?.data?.message || error.message);
     }
   };
+  console.log(selectedTasks);
   return (
     <div>
       {/* Filter */}
@@ -150,6 +151,7 @@ const ProjectTasks = ({ tasks }) => {
             <select
               name={name}
               id={name}
+              key={name}
               onChange={handleFilterChange}
               className="border not-dark:bg-white border-zinc-300 dark:border-zinc-800
                  outline-none px-3 py-1 rounded text-sm text-zinc-900 dark:text-zinc-300"
@@ -196,6 +198,58 @@ const ProjectTasks = ({ tasks }) => {
             <Trash className="size-3" /> Delete
           </button>
         )}
+      </div>
+
+      {/* Tasks Table */}
+      <div className=" overflow-hidden rounded-lg lg:border border-zinc-300 dark:border-zinc-800">
+        <div className="w-full">
+          {/* DeskTop/Table View */}
+          <div className="hidden lg:block overflow-x-auto">
+            <table className="min-w-full text-sm text-left not-dark:bg-white text-zinc-900 dark:text-zinc-300">
+              <thead className="text-xs uppercase dark:bg-zinc-800/70 text-zinc-500 dark:text-zinc-400">
+                <tr>
+                  <th className="pl-2 pr-1">
+                    <input
+                      onChange={() =>
+                        selectedTasks.length > 0
+                          ? setSelectedTasks([])
+                          : setSelectedTasks(tasks.map((t) => t.id))
+                      }
+                      checked={selectedTasks.length === tasks.length}
+                      type="checkbox"
+                      className="size-3 accent-zinc-600 dark:accent-zinc-500"
+                    />
+                  </th>
+                  <th className="px-4 pl-0 py-3">Title</th>
+                  <th className="px-4 py-3">Type</th>
+                  <th className="px-4 py-3">Priority</th>
+                  <th className="px-4 py-3">Status</th>
+                  <th className="px-4 py-3">Assignee</th>
+                  <th className="px-4 py-3">Due Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredTasks.length > 0 ? (
+                  filteredTasks.map((task) => {
+                    const { icon: Icon, color } = typeIcons[task.type] || {};
+                    const { background, prioritycolor } =
+                      priorityTexts[task.priority] || {};
+
+                      return (
+                        <tr>
+                          
+                        </tr>
+                      )
+                  })
+                ) : (
+                  <tr>
+                    <td>No tasks found for the selected filters.</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   );
