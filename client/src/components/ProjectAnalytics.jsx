@@ -124,12 +124,78 @@ const ProjectAnalytics = ({ tasks, project }) => {
                 </p>
                 <p className={`text-xl font-bold ${m.color}`}>{m.value}</p>
               </div>
-              <div className={`p-2 rounded-md ${m.bg}`}>
-                {m.icon}
-              </div>
+              <div className={`p-2 rounded-md ${m.bg}`}>{m.icon}</div>
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Charts */}
+      <div className="grid lg:grid-cols-2 gap-6">
+        {/* Tasks by Status */}
+        <div
+          className="not-dark:bg-white dark:bg-gradient-to-br dark:from-zinc-800/70
+               dark:to-zinc-900/50 border border-zinc-300 dark:border-zinc-800 rounded-lg p-6"
+        >
+          <h2 className="text-zinc-900 dark:text-white mb-4 font-medium">
+            Tasks by Status
+          </h2>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={statusData}>
+              <XAxis
+                dataKey="name"
+                tick={{ fill: "#52525b", fontSize: 12 }}
+                axisLine={{ stroke: "#d4d4d8" }}
+                dark={{ stroke: "#27272a" }}
+              />
+              <YAxis
+                tick={{ fill: "#52525b", fontSize: 12 }}
+                axisLine={{ stroke: "#d4d4d8" }}
+              />
+              <Bar dataKey="value" fill="#3b82f6" radius={[4, 4, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Tasks by Type */}
+        <div
+          className="not-dark:bg-white dark:bg-gradient-to-br dark:from-zinc-800/70
+               dark:to-zinc-900/50 border border-zinc-300 dark:border-zinc-800 rounded-lg p-6"
+        >
+          <h2 className="text-zinc-900 dark:text-white mb-4 font-medium">
+            Tasks by Type
+          </h2>
+          <ResponsiveContainer width="100%" height={300}>
+            <PieChart data={statusData}>
+              <Pie
+                data={typeData}
+                dataKey="value"
+                nameKey="name"
+                cx="50%"
+                cy="50%"
+                outerRadius={100}
+                label={({ name, value }) => `${name}: ${value}`}
+              >
+                {typeData.map((_, i) => (
+                  <Cell key={i} fill={COLORS[i % COLORS.length]} />
+                ))}
+              </Pie>
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
+      {/* Priority Breakdown */}
+      <div
+        className="not-dark:bg-white dark:bg-gradient-to-br dark:from-zinc-800/70
+               dark:to-zinc-900/50 border border-zinc-300 dark:border-zinc-800 rounded-lg p-6"
+      >
+        <h2 className="text-zinc-900 dark:text-white mb-4 font-medium">
+          Tasks by Priority
+        </h2>
+        <div>
+          
+        </div>
       </div>
     </div>
   );
