@@ -193,8 +193,39 @@ const ProjectAnalytics = ({ tasks, project }) => {
         <h2 className="text-zinc-900 dark:text-white mb-4 font-medium">
           Tasks by Priority
         </h2>
-        <div>
-          
+        <div className="space-y-4">
+          {priorityData.map((p) => (
+            <div key={p.name} className="space-y-2">
+              <div className="flex justify-between items-center">
+                <div className="flex items-center gap-2">
+                  <ArrowRightIcon
+                    className={`size-3.5 ${PRIORITY_COLORS[p.name]} bg-transparent dark:bg-transparent`}
+                  />
+                  <span className="text-zinc-900 dark:text-zinc-200 capitalize">
+                    {p.name.toLocaleLowerCase()}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-zinc-600 dark:text-zinc-400 text-sm">
+                    {p.value} tasks
+                  </span>
+                  <span
+                    className="px-2 py-0.5 border border-zinc-400 dark:border-zinc-700 text-zinc-600
+                   dark:text-zinc-400 text-xs rounded"
+                  >
+                    {p.percentage}%
+                  </span>
+                </div>
+              </div>
+
+              <div className="w-full bg-zinc-300 dark:bg-zinc-800 rounded-full h-1.5">
+                <div
+                  className={`h-1.5 rounded-full ${PRIORITY_COLORS[p.name]}`}
+                  style={{ width: `${p.percentage}%` }}
+                />
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
