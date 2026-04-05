@@ -50,7 +50,61 @@ const AddProjectMember = ({ isDialogOpen, setIsDialogOpen }) => {
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4"></form>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Email */}
+          <div className="space-y-2">
+            <label
+              htmlFor="email"
+              className="text-sm font-medium text-zinc-900 dark:text-zinc-200"
+            >
+              Email Address
+            </label>
+            <div className="relative">
+              <Mail
+                className=" absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500
+                 dark:text-zinc-400 w-4 h-4"
+              />
+              {/* List All name of project members from current workspace */}
+              <select
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="pl-10 mt-1 w-full rounded border border-zinc-300 dark:border-zinc-700 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-200 text-sm placeholder-zinc-400 dark:placeholder-zinc-500 py-2 focus:outline-none focus:border-blue-500"
+                required
+              >
+                <option value="">Select a member</option>
+                {currentWorkspace?.members
+                  .filter(
+                    (member) =>
+                      !projectMembersEmails.includes(member.user.email),
+                  )
+                  .map((member) => (
+                    <option key={member.user.id} value={member.user.email}>
+                      {" "}
+                      {member.user.email}{" "}
+                    </option>
+                  ))}
+              </select>
+            </div>
+          </div>
+
+          {/* Footer */}
+          <div className="flex justify-end gap-3 pt-2">
+            <button
+              type="button"
+              onClick={() => setIsDialogOpen(false)}
+              className="px-5 py-2 text-sm rounded border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-zinc-200 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              disabled={isAdding || !currentWorkspace}
+              className="px-5 py-2 text-sm rounded bg-gradient-to-br from-blue-500 to-blue-600 hover:opacity-90 text-white disabled:opacity-50 transition"
+            >
+              {isAdding ? "Adding..." : "Add Member"}
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
