@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 import { Plus, Save } from "lucide-react";
 import { useEffect, useState } from "react";
+import AddProjectMember from "../components/AddProjectMember";
 
 const ProjectSettings = ({ project }) => {
   const [formData, setFormData] = useState({
@@ -102,7 +103,7 @@ const ProjectSettings = ({ project }) => {
           </div>
 
           {/* Timeline */}
-          <div className="sapce-y-4 grid grid-cols-2 gap-4">
+          <div className="space-y-4 grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <label className={labelClasses}>Start Date</label>
               <input
@@ -164,7 +165,51 @@ const ProjectSettings = ({ project }) => {
         </form>
       </div>
 
-      
+      {/* Team Members */}
+      <div className="space-y-6">
+        <div className={cardClasses}>
+          <div className="flex items-center justify-between gap-4">
+            <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-300 mb-4">
+              Team Members{" "}
+              <span className="text-sm text-zinc-600 dark:text-zinc-400">
+                ({project.members.length})
+              </span>
+            </h2>
+            <button
+              type="button"
+              onClick={() => setIsDialogOpen(true)}
+              className="p-2 rounded-lg border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100
+               dark:hover:bg-zinc-800"
+            >
+              <Plus className="size-4 text-zinc-900 dark:text-zinc-300" />
+            </button>
+            <AddProjectMember
+              isDialogOpen={isDialogOpen}
+              setIsDialogOpen={setIsDialogOpen}
+            />
+          </div>
+
+          {/* Member List */}
+          {project.members.length > 0 && (
+            <div className="space-y-2 mt-2 max-h-32 overflow-y-auto">
+              {project.members.map((member, idx) => (
+                <div
+                  key={idx}
+                  className="flex items-center justify-between px-3 py-2 rounded dark:bg-zinc-800 
+                      text-sm text-zinc-900 dark:text-zinc-300"
+                >
+                  <span>{member?.user?.email || "Unknow"}</span>
+                  {project.team_lead === member.user.id && (
+                    <span className="px-2 py-0.5 rounded-xs ring-zinc-200 dark:ring-zinc-600">
+                      Team Lead
+                    </span>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
