@@ -2,6 +2,9 @@ import { Plus } from "lucide-react";
 import { useState } from "react";
 import CreateProjectDialog from "../components/CreateProjectDialog";
 import StatsGrid from "../components/StatsGrid";
+import ProjectOverview from "../components/ProjectOverview";
+import RecentActivity from "../components/RecentActivity";
+import TasksSummary from "../components/TasksSummary";
 
 const Dashboard = () => {
   const user = {
@@ -37,7 +40,15 @@ const Dashboard = () => {
       </div>
 
       <StatsGrid />
-      <div></div>
+      <div className="grid lg:grid-cols-3 gap-8">
+        <div className="lg:col-span-2 space-y-8">
+          <ProjectOverview />
+          <RecentActivity />
+        </div>
+        <div>
+          <TasksSummary />
+        </div>
+      </div>
     </div>
   );
 };
