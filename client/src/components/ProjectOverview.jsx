@@ -107,6 +107,40 @@ const ProjectOverview = () => {
                       />
                     </div>
                   </div>
+
+                  <div className="flex items-center justify-between text-xs text-zinc-500 mb-3">
+                    <div className="flex items-center gap-4">
+                      {project.members?.length > 0 && (
+                        <div className="flex items-center gap-1">
+                          <UsersIcon className="w-3 h-3" />
+                          {project.members.length} members
+                        </div>
+                      )}
+                      {project.end_date && (
+                        <div className="flex items-center gap-1">
+                          <Calendar className="w-3 h-3" />
+                          {format(new Date(project.end_date), "MMM d, yyy")}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-zinc-500">
+                        Progress
+                      </span>
+                      <span className="text-zinc-600 dark:text-zinc-400">
+                        {project.progress || 0}%
+                      </span>
+                    </div>
+                    <div className="w-full bg-zinc-200 dark:bg-zinc-800 rounded h-1.5">
+                      <div
+                        className="h-1.5 bg-blue-500 rounded"
+                        style={{ width: `${project.progress || 0}%` }}
+                      />
+                    </div>
+                  </div>
                 </Link>
               ))}
             </div>
