@@ -5,15 +5,25 @@ import { loadTheme } from "../features/themeSlice";
 import { Loader2Icon } from "lucide-react";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
+import { useUser, SignIn } from "@clerk/react";
 
 const Layout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const { loading } = useSelector((state) => state.workspace);
   const dispatch = useDispatch();
+  const { user, isLoaded } = useUser();
 
   useEffect(() => {
     dispatch(loadTheme());
   }, []);
+
+  if(!user){
+    return(
+      <div className="flex justify-center items-center h-screen bg-white dark:bg-zinc-950">
+        <SignIn/>
+      </div>
+    )
+  }
 
   if (loading)
     return (
