@@ -44,7 +44,7 @@ const syncUserUpdate = inngest.createFunction(
       },
       data: {
         email: data?.email_addresses[0]?.email_address,
-        name: data?.frist_name + " " + data?.last_name,
+        name: data?.first_name + " " + data?.last_name,
         image: data?.image_url,
       },
     });
