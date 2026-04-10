@@ -13,7 +13,7 @@ const syncUserCreation = inngest.createFunction(
       data: {
         id: data.id,
         email: data?.email_addresses[0]?.email_address,
-        name: data?.frist_name + " " + data?.last_name,
+        name: data?.first_name + " " + data?.last_name,
         image: data?.image_url,
       },
     });
@@ -35,7 +35,7 @@ const syncUserDeletion = inngest.createFunction(
 
 //Inngest function to updated user from database
 const syncUserUpdate = inngest.createFunction(
-  { id: "update-user-with-clerk", triggers: [{ event: "clerk/user.update" }] },
+  { id: "update-user-with-clerk", triggers: [{ event: "clerk/user.updated" }] },
   async ({ event }) => {
     const { data } = event;
     await prisma.user.update({
@@ -43,7 +43,7 @@ const syncUserUpdate = inngest.createFunction(
         id: data.id,
       },
       data: {
-        email: data?.email_addresses[0]?.email_addres,
+        email: data?.email_addresses[0]?.email_address,
         name: data?.frist_name + " " + data?.last_name,
         image: data?.image_url,
       },
