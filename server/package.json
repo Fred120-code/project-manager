@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "postinstall": "prisma generate",
-    "start": "prisma generate && node server.js",
-    "server": "nodemon server.js",
+    "start": "prisma generate && node index.js",
+    "server": "nodemon --exec tsx index.js",
     "build": "tsc"
   },
   "keywords": [],
@@ -24,6 +24,8 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.14",
-    "prisma": "^7.5.0"
+    "prisma": "^7.5.0",
+    "tsx": "^4.16.2",
+    "typescript": "^5.3.3"
   }
 }
