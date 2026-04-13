@@ -5,24 +5,34 @@ import { loadTheme } from "../features/themeSlice";
 import { Loader2Icon } from "lucide-react";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
-import { useUser, SignIn } from "@clerk/react";
+import { useUser, SignIn, useAuth, CreateOrganization } from "@clerk/react";
+import { fetchWorspaces } from "../features/workspaceSlice";
 
 const Layout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const { loading } = useSelector((state) => state.workspace);
+  const { loading, workspaces } = useSelector((state) => state.workspace);
   const dispatch = useDispatch();
   const { user, isLoaded } = useUser();
+  const { getToken } = useAuth();
 
+  //Initial load of theme
   useEffect(() => {
     dispatch(loadTheme());
   }, []);
 
-  if(!user){
-    return(
+  //Initial laod of workspaces
+  useEffect(() => {
+    if (isLoaded && user && workspaces.length === 0) {
+      dispatch(fetchWorspaces({ getToken }));
+    }
+  }, [user, isLoaded]);
+
+  if (!user) {
+    return (
       <div className="flex justify-center items-center h-screen bg-white dark:bg-zinc-950">
-        <SignIn/>
+        <SignIn />
       </div>
-    )
+    );
   }
 
   if (loading)
@@ -31,6 +41,14 @@ const Layout = () => {
         <Loader2Icon className="size-7 text-blue-500 animate-spin" />
       </div>
     );
+
+  if(user && workspaces.length === 0){
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        <CreateOrganization/>
+      </div>
+    )
+  }
 
   return (
     <div className="flex bg-white dark:bg-zinc-950 text-gray-900 dark:text-slate-100">

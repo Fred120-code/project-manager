@@ -6,8 +6,9 @@ export const fetchWorspaces = createAsyncThunk(
   "workspace/fetchWorspaces",
   async ({ getToken }) => {
     try {
+      const token = await getToken();
       const { data } = await api.get("/api/workspaces", {
-        headers: { Authorization: `Bearer ${getToken()}` },
+        headers: { Authorization: `Bearer ${token}` },
       });
       return data.workspaces || [];
     } catch (error) {
@@ -186,8 +187,8 @@ const workspaceSlice = createSlice({
       }
     });
     builder.addCase(fetchWorspaces.rejected, (state) => {
-      
-    })
+      state.loading = false;
+    });
   },
 });
 
