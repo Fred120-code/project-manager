@@ -3,7 +3,13 @@ import { prisma } from "../db.js";
 //Get all workspace for user
 export const getUserWorkspace = async (req, res) => {
   try {
-    const { userId } = await req.auth();
+    const auth = await req.auth();
+    const { userId } = auth || {};
+
+    if (!userId) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
     const workspaces = await prisma.workspace.findMany({
       where: {
         members: {
@@ -35,10 +41,10 @@ export const getUserWorkspace = async (req, res) => {
       },
     });
 
-    res.json({ workspaces });
+    return res.json({ workspaces });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: error.code || error.message });
+    return res.status(500).json({ message: error.code || error.message });
   }
 };
 
