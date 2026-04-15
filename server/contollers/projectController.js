@@ -1,4 +1,4 @@
-import { prisma } from "../db.js";
+import { prisma } from "../configs/db.js";
 
 //Created project
 export const createProject = async (req, res) => {

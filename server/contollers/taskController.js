@@ -1,4 +1,4 @@
-import { prisma } from "../db.js";
+import { prisma } from "../configs/db.js";
 
 //create task
 export const createTask = async (req, res) => {
@@ -169,9 +169,7 @@ export const deleteTask = async (req, res) => {
       },
     });
 
-    return res
-      .status(200)
-      .json({ message: "Task deleted successfully" });
+    return res.status(200).json({ message: "Task deleted successfully" });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: error.code || error.message });

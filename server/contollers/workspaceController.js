@@ -1,4 +1,4 @@
-import { prisma } from "../db.js";
+import { prisma } from "../configs/db.js";
 
 //Get all workspace for user
 export const getUserWorkspace = async (req, res) => {

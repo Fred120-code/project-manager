@@ -1,4 +1,4 @@
-import { prisma } from "../db.js";
+import { prisma } from "../configs/db.js";
 
 //Add comment
 export const addComment = async (req, res) => {
