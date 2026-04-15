@@ -72,11 +72,45 @@ export const createProject = async (req, res) => {
     if (team_members?.length > 0) {
       const membersToAdd = [];
       workspace.members.forEach((member) => {
-        if (team_members.include(member.user.email)) {
+        if (team_members.includes(member.user.email)) {
           membersToAdd.push(member.user.id);
         }
       });
+
+      await prisma.projectMember.createMany({
+        data: membersToAdd.map((memberId) => ({
+          projectId: project.id,
+          userId: memberId,
+        })),
+      });
     }
+
+    const projectWithMembers = await prisma.project.findUnique({
+      where: { id: project.id },
+      include: {
+        members: {
+          include: {
+            user: true,
+          },
+        },
+        tasks: {
+          include: {
+            assignee: true,
+            comments: {
+              include: {
+                user: true,
+              },
+            },
+          },
+        },
+        owner: true,
+      },
+    });
+
+    res.json({
+      project: projectWithMembers,
+      message: "Project created succesfully",
+    });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: error.code || error.message });
@@ -86,6 +120,74 @@ export const createProject = async (req, res) => {
 //Update project
 export const updateProject = async (req, res) => {
   try {
+    const { userId } = await req.auth();
+    const {
+      id,
+      workspaceId,
+      description,
+      name,
+      status,
+      start_date,
+      end_date,
+      progress,
+      priority,
+    } = req.body;
+
+    //check if user has admin role for workspace
+    const workspace = await prisma.workspace.findUnique({
+      where: {
+        id: workspaceId,
+      },
+      include: {
+        members: {
+          include: {
+            user: true,
+          },
+        },
+      },
+    });
+
+    if (!workspace) {
+      return res.status(404).json({ message: "Workspace not found" });
+    }
+
+    if (
+      !workspace.members.some(
+        (member) => member.userId === userId && member.role === "ADMIN",
+      )
+    ) {
+      const project = await prisma.project.findUnique({
+        where: { id },
+      });
+
+      if (!project) {
+        return res.status(404).json({
+          message: "Project not found",
+        });
+      } else if (project.team_lead !== userId) {
+        return res.status(403).json({
+          message:
+            "You don't have permission to update projects in this workspace ",
+        });
+      }
+    }
+
+    const project = await prisma.project.update({
+      where: {
+        id,
+      },
+      data: {
+        description,
+        name,
+        status,
+        start_date: start_date ? new Date(start_date) : null,
+        end_date: end_date ? new Date(end_date) : null,
+        progress,
+        priority,
+      },
+    });
+
+    res.json({ project, message: "Project updated successfully" });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: error.code || error.message });
