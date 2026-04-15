@@ -38,13 +38,33 @@ export const addComment = async (req, res) => {
     const comment = await prisma.comment.create({
       data: {
         taskId,
-        comment,
+        content,
         userId,
       },
       include: { user: true },
     });
 
     res.json({ comment });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: error.code || error.message });
+  }
+};
+
+//Get comments for task
+export const getTaskComments = async (req, res) => {
+  try {
+    const { taskId } = req.params;
+    const comments = await prisma.comment.findMany({
+      where: {
+        taskId,
+      },
+      include: {
+        user: true,
+      },
+    });
+
+    return res.json({ comments });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: error.code || error.message });

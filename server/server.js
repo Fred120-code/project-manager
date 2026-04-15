@@ -8,6 +8,7 @@ import { protect } from "./middlewares/authMiddleware.js";
 import workspaceRouter from "./routes/workspaceRoute.js";
 import projectRouter from "./routes/projectRoute.js";
 import taskRouter from "./routes/taskRoute.js";
+import commentRouter from "./routes/comentRoute.js";
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use("/api/inngest", serve({ client: inngest, functions }));
 app.use("/api/workspaces", protect, workspaceRouter);
 app.use("/api/projects", protect, projectRouter);
 app.use("/api/tasks", protect, taskRouter);
+app.use("/api/comments", protect, commentRouter);
 
 app.get("/", (req, res) => {
   res.send("Server is running");
