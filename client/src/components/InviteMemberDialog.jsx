@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Mail, UserPlus } from "lucide-react";
 import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
+import api from "../configs/api";
 
 const InviteMemberDialog = ({ isDialogOpen, setIsDialogOpen }) => {
   const currentWorkspace = useSelector(
@@ -14,6 +16,10 @@ const InviteMemberDialog = ({ isDialogOpen, setIsDialogOpen }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+    } catch (error) {
+      toast.error(error?.response?.data?.message || error.message);
+    }
   };
 
   if (!isDialogOpen) return null;
