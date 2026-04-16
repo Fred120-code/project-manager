@@ -5,11 +5,10 @@ import StatsGrid from "../components/StatsGrid";
 import ProjectOverview from "../components/ProjectOverview";
 import RecentActivity from "../components/RecentActivity";
 import TasksSummary from "../components/TasksSummary";
+import { useUser } from "@clerk/react";
 
 const Dashboard = () => {
-  const user = {
-    fullName: "User",
-  };
+  const { user } = useUser();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   return (
     <div className="max-w-6xl mx-auto">
