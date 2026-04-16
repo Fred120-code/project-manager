@@ -499,7 +499,7 @@ const sendTaskAssignmentEmail = inngest.createFunction(
                       </p>
                       
                       <center>
-                        <a href="${task?.origin || "#"}" class="cta-button">Compléter la tâche maintenant</a>
+                        <a href="${origin || "#"}" class="cta-button">Compléter la tâche maintenant</a>
                       </center>
                       
                       <p style="color: #999; font-size: 14px;">
