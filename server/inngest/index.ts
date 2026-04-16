@@ -163,13 +163,35 @@ const syncWorkspaceMemberCreation = inngest.createFunction(
   },
   async ({ event }) => {
     const { data } = event;
-    await prisma.workspaceMember.create({
-      data: {
-        userId: data.user_id,
-        workspaceId: data.organization_id,
-        role: data.role_name,
-      },
-    });
+
+    console.log(
+      "Organization invitation accepted webhook:",
+      JSON.stringify(data, null, 2),
+    );
+
+    // Map Clerk role format to Prisma enum
+    const roleMap: Record<string, "ADMIN" | "MEMBER"> = {
+      "org:admin": "ADMIN",
+      "org:member": "MEMBER",
+    };
+
+    const mappedRole = roleMap[data.role_name] || "MEMBER";
+
+    try {
+      await prisma.workspaceMember.create({
+        data: {
+          userId: data.user_id,
+          workspaceId: data.organization_id,
+          role: mappedRole,
+        },
+      });
+      console.log(
+        `Successfully created workspace member: userId=${data.user_id}, workspaceId=${data.organization_id}, role=${mappedRole}`,
+      );
+    } catch (error) {
+      console.error("Error creating workspace member:", error);
+      throw error;
+    }
   },
 );
 
@@ -535,6 +557,6 @@ export const functions = [
   syncWorkspaceUpdate,
   syncWorkspacedeleted,
   syncWorkspaceMemberCreation,
-  sendTaskAssignmentEmail
+  sendTaskAssignmentEmail,
 ];
 inngest;

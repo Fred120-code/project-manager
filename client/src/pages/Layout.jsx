@@ -22,10 +22,10 @@ const Layout = () => {
 
   //Initial laod of workspaces
   useEffect(() => {
-    if (isLoaded && user && workspaces.length === 0) {
+    if (isLoaded && user) {
       dispatch(fetchWorspaces({ getToken }));
     }
-  }, [user, isLoaded]);
+  }, [user, isLoaded, dispatch, getToken]);
 
   if (!user) {
     return (
