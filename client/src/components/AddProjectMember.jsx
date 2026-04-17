@@ -2,8 +2,14 @@ import { useState } from "react";
 import { Mail, UserPlus } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
+import { useAuth } from "@clerk/react";
+import toast from "react-hot-toast";
+import api from "../configs/api";
+import { fetchWorspaces } from "../features/workspaceSlice";
 
 const AddProjectMember = ({ isDialogOpen, setIsDialogOpen }) => {
+  const dispatch = useDispatch();
+  const { getToken } = useAuth();
   const [searchParams] = useSearchParams();
   const id = searchParams.get("id");
 
@@ -20,7 +26,29 @@ const AddProjectMember = ({ isDialogOpen, setIsDialogOpen }) => {
   const [isAdding, setIsAdding] = useState(false);
 
   const handleSubmit = async (e) => {
+    const token = await getToken();
     e.preventDefault();
+
+    setIsAdding(true);
+    try {
+      await api.post(
+        `/api/projects/${project.id}/addMember`,
+        { email },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+      toast.success("Added to project successfully");
+      dispatch(fetchWorspaces({ getToken }));
+    } catch (error) {
+      toast.dismissAll();
+      toast.error(error?.response?.data?.message || error.message);
+    } finally {
+      setIsDialogOpen(false);
+      setIsAdding(false);
+    }
   };
 
   if (!isDialogOpen) return null;
