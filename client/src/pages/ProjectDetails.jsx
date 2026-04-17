@@ -102,7 +102,7 @@ const ProjectDetails = () => {
       </div>
 
       {/* Info Cards */}
-      <div className="grid grid-cols-2 sm:flex flex-wrp gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex flex-wrap gap-6 w-full overflow-x-hidden">
         {[
           {
             label: "Total Tasks",
@@ -130,8 +130,8 @@ const ProjectDetails = () => {
           <div
             key={idx}
             className="dark:bg-gradient-to-br dark:from-zinc-800/70 dark:to-zinc-900/50 border
-             border-zinc-200 dark:border-zinc-800 flex justify-between sm:min-w-60
-              p-4 py-2.5 rounded"
+             border-zinc-200 dark:border-zinc-800 flex justify-between min-w-full sm:min-w-60
+              p-4 py-2.5 rounded flex-shrink-0"
           >
             <div>
               <div className="text-sm text-zinc-600 dark:text-zinc-400">
@@ -149,7 +149,7 @@ const ProjectDetails = () => {
       {/* Tabs */}
       <div>
         <div
-          className=" inline-flex flex-wrap max-sm:grid grid-cols-3 gap-2 border 
+          className="w-full flex flex-wrap max-sm:grid grid-cols-2 sm:grid-cols-4 gap-2 border 
          border-zinc-200 dark:border-zinc-800 rounded overflow-hidden"
         >
           {[

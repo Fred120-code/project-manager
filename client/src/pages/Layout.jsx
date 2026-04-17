@@ -10,6 +10,7 @@ import { fetchWorspaces } from "../features/workspaceSlice";
 
 const Layout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [hasInitialized, setHasInitialized] = useState(false);
   const { loading, workspaces } = useSelector((state) => state.workspace);
   const dispatch = useDispatch();
   const { user, isLoaded } = useUser();
@@ -18,14 +19,15 @@ const Layout = () => {
   //Initial load of theme
   useEffect(() => {
     dispatch(loadTheme());
-  }, []);
+  }, [dispatch]);
 
-  //Initial laod of workspaces
+  //Initial laod of workspaces - only once when user is ready
   useEffect(() => {
-    if (isLoaded && user) {
+    if (isLoaded && user && !hasInitialized) {
+      setHasInitialized(true);
       dispatch(fetchWorspaces({ getToken }));
     }
-  }, [user, isLoaded, dispatch, getToken]);
+  }, [isLoaded, user, hasInitialized, dispatch, getToken]);
 
   if (!user) {
     return (
@@ -42,12 +44,12 @@ const Layout = () => {
       </div>
     );
 
-  if(user && workspaces.length === 0){
+  if (user && workspaces.length === 0) {
     return (
       <div className="min-h-screen flex justify-center items-center">
-        <CreateOrganization/>
+        <CreateOrganization />
       </div>
-    )
+    );
   }
 
   return (
