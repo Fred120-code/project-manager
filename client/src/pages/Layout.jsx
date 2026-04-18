@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
-import { loadTheme } from "../features/themeSlice";
 import { Loader2Icon } from "lucide-react";
+import { loadTheme } from "../features/themeSlice";
 import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import { useUser, SignIn, useAuth, CreateOrganization } from "@clerk/react";
