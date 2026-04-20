@@ -6,12 +6,10 @@ import {
 } from "lucide-react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useUser } from "@clerk/react";
 
 const MyTasksSidebar = () => {
-  const user = {
-    id: "user_1",
-  };
-
+  const user = useUser()
   const { currentWorkspace } = useSelector((state) => state.workspace);
   const [showMyTasks, setShowMyTasks] = useState(false);
   const [myTasks, setMyTasks] = useState([]);
@@ -32,7 +30,7 @@ const MyTasksSidebar = () => {
   };
 
   const fetchUserTasks = () => {
-    const userId = user?.id || "";
+    const userId = user.user.id || "";
     if (!userId || !currentWorkspace) return;
     const currentWorkspaceTasks = currentWorkspace.projects.flatMap(
       (project) => {

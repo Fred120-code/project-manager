@@ -453,7 +453,7 @@ const sendTaskAssignmentEmail = inngest.createFunction(
                     .cta-button {
                       display: inline-block;
                       background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
-                      color: white;
+                      color: #ffff;
                       padding: 12px 30px;
                       text-decoration: none;
                       border-radius: 6px;
