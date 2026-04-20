@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { ArrowRight, Clock, AlertTriangle, User } from "lucide-react";
 import { useSelector } from "react-redux";
+import { useUser } from "@clerk/react";
 
 const TasksSummary = () => {
+  const user = useUser();
   const { currentWorkspace } = useSelector((state) => state.workspace);
-  const user = { id: "user_1" };
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
@@ -13,7 +14,7 @@ const TasksSummary = () => {
     }
   }, [currentWorkspace]);
 
-  const myTasks = tasks.filter((t) => t.assigneeId === user.id);
+  const myTasks = tasks.filter((t) => t.assigneeId === user.user.id);
   const overdueTasks = tasks.filter(
     (t) =>
       t.due_date && new Date(t.due_date) < new Date() && t.status !== "DONE",
