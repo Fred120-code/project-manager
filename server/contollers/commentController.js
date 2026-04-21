@@ -64,7 +64,7 @@ export const getTaskComments = async (req, res) => {
       },
     });
 
-    return res.json({ comments });
+   res.json({ comments });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: error.code || error.message });

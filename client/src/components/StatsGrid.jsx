@@ -1,8 +1,10 @@
 import { FolderOpen, CheckCircle, Users, AlertTriangle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-
+import { useUser } from "@clerk/react";
 const StatsGrid = () => {
+  const { user } = useUser();
+
   const currentWorkspace = useSelector(
     (state) => state?.workspace?.currentWorkspace || null,
   );
@@ -51,7 +53,8 @@ const StatsGrid = () => {
   ];
 
   useEffect(() => {
-    if (currentWorkspace) {
+    if (currentWorkspace && user) {
+      const userEmail = user.primaryEmailAddress?.emailAddress;
       setStats({
         totalProjects: currentWorkspace.projects.length,
         activeProjects: currentWorkspace.projects.filter(
@@ -63,9 +66,7 @@ const StatsGrid = () => {
         myTasks: currentWorkspace.projects.reduce(
           (acc, project) =>
             acc +
-            project.tasks.filter(
-              (t) => t.assignee?.email === currentWorkspace.owner.email,
-            ).length,
+            project.tasks.filter((t) => t.assignee?.email === userEmail).length,
           0,
         ),
         overdueIssues: currentWorkspace.projects.reduce(
@@ -75,7 +76,7 @@ const StatsGrid = () => {
         ),
       });
     }
-  }, [currentWorkspace]);
+  }, [currentWorkspace, user]);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 my-9">
