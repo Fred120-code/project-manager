@@ -71,10 +71,10 @@ export const createTask = async (req, res) => {
 
     await inngest.send({
       name: "app/task.assigned",
-      data:{
+      data: {
         taskId: task.id,
-        origin
-      }
+        origin,
+      },
     });
 
     return res
@@ -142,7 +142,7 @@ export const deleteTask = async (req, res) => {
     const { userId } = await req.auth();
     const { tasksId } = req.body;
 
-    const tasks = await prisma.task.findUnique({
+    const tasks = await prisma.task.findMany({
       where: { id: { in: tasksId } },
     });
 

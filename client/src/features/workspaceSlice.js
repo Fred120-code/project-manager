@@ -165,6 +165,7 @@ const workspaceSlice = createSlice({
     builder.addCase(fetchWorspaces.pending, (state) => {
       state.loading = true;
     });
+
     builder.addCase(fetchWorspaces.fulfilled, (state, action) => {
       state.loading = false;
       state.workspaces = action.payload;
@@ -185,6 +186,7 @@ const workspaceSlice = createSlice({
         }
       }
     });
+    
     builder.addCase(fetchWorspaces.rejected, (state) => {
       state.loading = false;
     });
