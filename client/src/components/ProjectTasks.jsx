@@ -15,6 +15,8 @@ import { useDispatch } from "react-redux";
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { deleteTask, updateTask } from "../features/workspaceSlice";
+import api from "../configs/api";
+import { useAuth } from "@clerk/react";
 
 const typeIcons = {
   BUG: { icon: Bug, color: "text-red-600 dark:text-red-400" },
@@ -43,6 +45,7 @@ const priorityTexts = {
 };
 
 const ProjectTasks = ({ tasks }) => {
+  const { getToken } = useAuth();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [selectedTasks, setSelectedTasks] = useState([]);
@@ -79,9 +82,21 @@ const ProjectTasks = ({ tasks }) => {
 
   const handleStatusChange = async (taskId, newStatus) => {
     try {
+      const token = await getToken();
+
       toast.loading("Updating status...");
 
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      await api.put(
+        `/api/tasks/${taskId}`,
+        {
+          status: newStatus,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
 
       let updatedTask = structuredClone(tasks.find((t) => t.id === taskId));
       updatedTask.status = newStatus;
@@ -98,13 +113,24 @@ const ProjectTasks = ({ tasks }) => {
   const handleDelete = async () => {
     try {
       const confrim = window.confirm(
-        "Are you sure you want to delete the selected tasks?",
+        "Are you sure you want to delete the selected task(s)?",
       );
 
       if (!confrim) return;
       toast.loading("Deleting tasks...");
 
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      const token = await getToken();
+      await api.post(
+        "/api/tasks/deleted",
+        {
+          tasksId: selectedTasks,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
 
       dispatch(deleteTask(selectedTasks));
       toast.dismissAll();
@@ -114,6 +140,7 @@ const ProjectTasks = ({ tasks }) => {
       toast.error(error?.response?.data?.message || error.message);
     }
   };
+
   console.log(selectedTasks);
   return (
     <div>
