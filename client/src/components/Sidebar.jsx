@@ -6,11 +6,13 @@ import {
 } from "lucide-react";
 import { useEffect, useRef } from "react";
 import WorkspaceDropdown from "./WorkspaceDropdown";
-import MyTasksSidebar from "./MyTasksSidebar"
-import ProjectSidebar from "./ProjectSidebar"
+import MyTasksSidebar from "./MyTasksSidebar";
+import ProjectSidebar from "./ProjectSidebar";
 import { NavLink } from "react-router-dom";
+import { useClerk } from "@clerk/react";
 
 const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
+  const { openUserProfile } = useClerk();
   const menuItems = [
     { name: "Dashboard", href: "/", icon: LayoutDashboardIcon },
     { name: "Projects", href: "/projects", icon: FolderOpenIcon },
@@ -56,6 +58,7 @@ const Sidebar = ({ isSidebarOpen, setIsSidebarOpen }) => {
               </NavLink>
             ))}
             <button
+              onClick={openUserProfile}
               className="flex w-full items-center gap-3 py-2 px-4
             text-gray-800 dark:text-zinc-100 cursor-pointer rounded
             hover:bg-gray-50 dark:hover:bg-zinc-800/50 transition-all"
