@@ -141,7 +141,6 @@ const ProjectTasks = ({ tasks }) => {
     }
   };
 
-  console.log(selectedTasks);
   return (
     <div>
       {/* Filter */}
@@ -400,6 +399,7 @@ const ProjectTasks = ({ tasks }) => {
                         {task.title}
                       </h3>
                       <input
+                        onClick={(e)=> e.stopPropagation()}
                         type="checkbox"
                         className="size-4 accent-zinc-600 dark:accent-zinc-500"
                         onChange={() =>
