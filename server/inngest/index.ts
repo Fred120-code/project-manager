@@ -329,19 +329,19 @@ const sendTaskAssignmentEmail = inngest.createFunction(
                   <span class="label">Date limite :</span> ${dueDate}
                 </div>
                 ${
-                  task?.description
-                    ? `<div class="task-detail">
+        task?.description
+            ? `<div class="task-detail">
                   <span class="label">Description :</span><br> ${task.description}
                 </div>`
-                    : ""
-                }
+            : ""
+    }
               </div>
               
               <p>Veuillez cliquer sur le bouton ci-dessous pour consulter les détails de la tâche et commencer à travailler dessus.</p>
               
-              <center>
+              <div style="text-align: center;">
                 <a href="${origin}" class="cta-button">Voir la tâche</a>
-              </center>
+              </div>
               
               <p style="color: #999; font-size: 14px;">
                 Si vous avez des questions concernant cette tâche, veuillez contacter le gestionnaire de projet.
@@ -502,27 +502,31 @@ const sendTaskAssignmentEmail = inngest.createFunction(
                       <div class="task-info">
                         <div class="task-title">📋 ${task.title}</div>
                         <div class="task-detail">
-                          <span class="label">Date limite :</span> ${new Date(task.due_date).toLocaleDateString("fr-FR", { year: "numeric", month: "long", day: "numeric" })}
+                          <span class="label">Date limite :</span> ${new Date(task.due_date).toLocaleDateString("fr-FR", {
+              year: "numeric",
+              month: "long",
+              day: "numeric"
+            })}
                         </div>
                         <div class="task-detail">
                           <span class="label">Statut actuel :</span> ${task.status}
                         </div>
                         ${
-                          task?.description
-                            ? `<div class="task-detail">
+                task?.description
+                    ? `<div class="task-detail">
                           <span class="label">Description :</span><br> ${task.description}
                         </div>`
-                            : ""
-                        }
+                    : ""
+            }
                       </div>
                       
                       <p style="color: #d97706; font-weight: 600;">
                         Merci de compléter cette tâche dès que possible pour maintenir la progression du projet.
                       </p>
                       
-                      <center>
+                      <div style="text-align: center;">
                         <a href="${origin || "#"}" class="cta-button">Compléter la tâche maintenant</a>
-                      </center>
+                      </div>
                       
                       <p style="color: #999; font-size: 14px;">
                         Si vous rencontrez des obstacles pour compléter cette tâche, veuillez contacter le gestionnaire de projet.
