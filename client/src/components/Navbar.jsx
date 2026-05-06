@@ -2,7 +2,6 @@ import { SearchIcon, PanelLeft } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { MoonIcon, SunIcon } from "lucide-react";
 import { toogleTheme } from "../features/themeSlice";
-import { assets } from "../assets/assets";
 import { UserButton } from "@clerk/react";
 
 const Navbar = ({ setIsSidebarOpen }) => {
