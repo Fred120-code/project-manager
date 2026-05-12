@@ -1,7 +1,7 @@
 import express from "express";
 import "dotenv/config";
 import helmet from "helmet";
-import rateLimit from "express-rate-limit";
+import rateLimit, { ipKeyGenerator } from "express-rate-limit";
 import cors from "cors";
 import { clerkMiddleware } from "@clerk/express";
 import { serve } from "inngest/express";
@@ -22,11 +22,14 @@ const createUserLimiter = (windowMs, max, message) => {
     message,
     standardHeaders: true,
     legacyHeaders: false,
-    keyGenerator: (req, res) => {
-      // Use userId for authenticated requests, fallback to IP
-      return req.userId || req.ip;
+    keyGenerator: (req) => {
+      // Use userId for authenticated requests, fallback to IP with proper IPv6 handling
+      if (req.userId) {
+        return req.userId;
+      }
+      return ipKeyGenerator(req);
     },
-    skip: (req, res) => {
+    skip: (req) => {
       // Don't limit unauthenticated requests (they're blocked by protect middleware anyway)
       return !req.userId;
     },
