@@ -1,10 +1,21 @@
 import { prisma } from "../configs/db.js";
 import { inngest } from "../inngest/index.js";
+import { taskSchema } from "../utils/validation.js";
 
 //create task
 export const createTask = async (req, res) => {
   try {
     const { userId } = await req.auth();
+    const { error, value } = taskSchema.validate(req.body);
+
+    if (error) {
+      res.status(400).json({
+        success: false,
+        message: error.details[0].message,
+      });
+      return;
+    }
+
     const {
       projectId,
       title,
@@ -14,7 +25,7 @@ export const createTask = async (req, res) => {
       priority,
       assigneeId,
       due_date,
-    } = req.body;
+    } = value;
 
     const origin = req.get("origin");
 
@@ -36,7 +47,7 @@ export const createTask = async (req, res) => {
       return res.status(404).json({ message: "Project not found" });
     } else if (project.team_lead !== userId) {
       return res
-        .status(500)
+        .status(403)
         .json({ message: "You don't have admin privileges for this project" });
     } else if (
       assigneeId &&
@@ -116,7 +127,7 @@ export const updateTask = async (req, res) => {
       return res.status(404).json({ message: "Project not found" });
     } else if (project.team_lead !== userId) {
       return res
-        .status(500)
+        .status(403)
         .json({ message: "You don't have admin privileges for this project" });
     }
 
@@ -124,7 +135,7 @@ export const updateTask = async (req, res) => {
       where: {
         id: req.params.id,
       },
-      data: req.body,
+      data: value,
     });
 
     return res
