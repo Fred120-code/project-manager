@@ -151,9 +151,9 @@ export const deleteTask = async (req, res) => {
     }
 
     // Check if user has admin role for project
-    const project = await prisma.project.findUnique({
+    const projects = await prisma.project.findMany({
       where: {
-        id: tasks[0].projectId,
+        id: { in: tasks.map((task) => task.projectId) },
       },
       include: {
         members: {
@@ -164,11 +164,11 @@ export const deleteTask = async (req, res) => {
       },
     });
 
-    if (!project) {
+    if (!projects || projects.length === 0) {
       return res.status(404).json({ message: "Project not found" });
-    } else if (project.team_lead !== userId) {
+    } else if (!projects.every((project) => project.team_lead === userId)) {
       return res
-        .status(500)
+        .status(403)
         .json({ message: "You don't have admin privileges for this project" });
     }
 
