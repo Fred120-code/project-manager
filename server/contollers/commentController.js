@@ -28,7 +28,7 @@ export const addComment = async (req, res) => {
       return res.status(404).json({ message: "Project not found" });
     }
 
-    const member = project.members.find((member) => (member.userId = userId));
+    const member = project.members.find((member) => (member.userId === userId));
     if (!member) {
       return res
         .status(404)

@@ -36,7 +36,7 @@ const CreateTaskDialog = ({ showCreateTask, setShowCreateTask, projectId }) => {
     try {
       const { data } = await api.post(
         "api/tasks",
-        { ...formData, workspaceId: currentWorkspace.id, projectId },
+        { ...formData, projectId },
         {
           headers: {
             Authorization: `Bearer ${token}`,
