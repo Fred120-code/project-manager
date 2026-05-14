@@ -1,9 +1,20 @@
 import { prisma } from "../configs/db.js";
+import { projectSchema } from "../utils/validation.js";
 
 //Created project
 export const createProject = async (req, res) => {
   try {
     const { userId } = await req.auth();
+    const { error, value } = projectSchema.validate(req.body);
+
+    if (error) {
+      res.status(400).json({
+        success: false,
+        message: error.details[0].message,
+      });
+      return;
+    }
+
     const {
       workspaceId,
       description,
@@ -15,7 +26,7 @@ export const createProject = async (req, res) => {
       team_lead,
       progress,
       priority,
-    } = req.body;
+    } = value;
 
     //check if user has admin role for workspace
     const workspace = await prisma.workspace.findUnique({
@@ -57,14 +68,14 @@ export const createProject = async (req, res) => {
     const project = await prisma.project.create({
       data: {
         workspaceId,
-        description,
         name,
+        description,
+        priority,
         status,
         start_date: start_date ? new Date(start_date) : null,
         end_date: end_date ? new Date(end_date) : null,
         team_lead: teamLead?.id,
         progress,
-        priority,
       },
     });
 
