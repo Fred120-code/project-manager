@@ -59,7 +59,7 @@ const RecentActivity = () => {
 
       <div className="p-0">
         {tasks.length === 0 ? (
-          <div className="p-12 text-center">
+          <div className="p-6 sm:p-12 text-center">
             <div
               className="w-16 h-16 mx-auto mb-4 bg-zinc-200 dark:bg-zinc-800 rounded-full
                      flex items-center justify-center"
@@ -81,19 +81,19 @@ const RecentActivity = () => {
               return (
                 <div
                   key={task.id}
-                  className="p-6 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 transition-colors"
+                  className="p-4 sm:p-6 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 transition-colors"
                 >
-                  <div className="flex items-start gap-4">
-                    <div className="p-2 bg-zinc-200 dark:bg-zinc-800 rounded-lg">
+                  <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4">
+                    <div className="p-2 bg-zinc-200 dark:bg-zinc-800 rounded-lg flex-shrink-0">
                       <TypeIcon className={`w-4 h-4 ${iconColor}`} />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-start justify-between mb-2">
-                        <h4 className="text-zinc-800 dark:text-zinc-200 truncate">
+                      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 sm:gap-2 mb-2">
+                        <h4 className="text-sm sm:text-base text-zinc-800 dark:text-zinc-200 truncate">
                           {task.title}
                         </h4>
                         <span
-                          className={`ml-2 px-2 py-1 rounded text-xs ${
+                          className={`px-2 py-1 rounded text-xs w-fit ${
                             statusColors[task.status] ||
                             "bg-zinc-300 text-zinc-700 dark:bg-zinc-700 dark:text-zinc-300"
                           }`}
@@ -102,7 +102,7 @@ const RecentActivity = () => {
                         </span>
                       </div>
 
-                      <div className="flex items-center gap-3 text-xs text-zinc-500 dark:text-zinc-400">
+                      <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-500 dark:text-zinc-400">
                         <span className="capitalize">
                           {task.type.toLowerCase()}
                         </span>
@@ -111,10 +111,12 @@ const RecentActivity = () => {
                             <div className="w-4 h-4 bg-zinc-300 dark:bg-zinc-700 rounded-full flex items-center justify-center text-[10px] text-zinc-800 dark:text-zinc-200">
                               {task.assignee.name[0].toUpperCase()}
                             </div>
-                            {task.assignee.name}
+                            <span className="hidden sm:inline">
+                              {task.assignee.name}
+                            </span>
                           </div>
                         )}
-                        <span>
+                        <span className="hidden sm:inline">
                           {format(new Date(task.updatedAt), "MMM d, h:mm a")}
                         </span>
                       </div>

@@ -47,7 +47,7 @@ const TasksSummary = () => {
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3 sm:space-y-6">
       {summaryCards.map((card) => (
         <div
           className="bg-white dark:bg-zinc-950 dark:bg-gradient-to-br dark:from-zinc-800/70 dark:to-zinc-900/50
@@ -55,17 +55,17 @@ const TasksSummary = () => {
             transition-all duration-200 rounded-lg overflow-hidden"
           key={card.title}
         >
-          <div className="border-b border-zinc-200 dark:border-zinc-800 p-4 pb-3">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-zinc-50 dark:bg-zinc-800 rounded-lg">
+          <div className="border-b border-zinc-200 dark:border-zinc-800 p-3 sm:p-4 pb-2 sm:pb-3">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+              <div className="p-2 bg-zinc-50 dark:bg-zinc-800 rounded-lg flex-shrink-0">
                 <card.icon className="size-4 text-gray-500 dark:text-zinc-400" />
               </div>
               <div className="flex items-center justify-between flex-1">
-                <h3 className="text-sm font-medium text-gray-800 dark:text-white">
+                <h3 className="text-xs sm:text-sm font-medium text-gray-800 dark:text-white">
                   {card.title}
                 </h3>
                 <span
-                  className={`inline-block mt-1 px-2 py-1 rounded text-xs font-semibold ${card.color}`}
+                  className={`inline-block px-2 py-1 rounded text-xs font-semibold ${card.color}`}
                 >
                   {card.count}
                 </span>
@@ -73,7 +73,7 @@ const TasksSummary = () => {
             </div>
           </div>
 
-          <div className="p-4">
+          <div className="p-3 sm:p-4">
             {card.items.length === 0 ? (
               <p className="text-sm text-gray-500 dark:text-zinc-400 text-center py-4">
                 No {card.title.toLocaleLowerCase()}
@@ -83,13 +83,13 @@ const TasksSummary = () => {
                 {card.items.map((issue) => (
                   <div
                     key={issue.id}
-                    className="p-3 rounded-lg bg-zinc-50 dark:bg-zinc-900 hover:bg-zinc-100 dark:hover:bg-zinc-800
+                    className="p-2 sm:p-3 rounded-lg bg-zinc-50 dark:bg-zinc-900 hover:bg-zinc-100 dark:hover:bg-zinc-800
                          transition-colors cursor-pointer"
                   >
-                    <h4 className="text-sm font-medium text-gray-800 dark:text-white truncate">
+                    <h4 className="text-xs sm:text-sm font-medium text-gray-800 dark:text-white truncate">
                       {issue.title}
                     </h4>
-                    <p className="text-xs text-gray-600 dark:text-zinc-400 capitalize mt-1">
+                    <p className="text-[10px] sm:text-xs text-gray-600 dark:text-zinc-400 capitalize mt-1">
                       {issue.type} • {issue.priority} priority
                     </p>
                   </div>
