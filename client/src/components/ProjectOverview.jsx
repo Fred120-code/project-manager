@@ -54,7 +54,7 @@ const ProjectOverview = () => {
 
         <div className="p-0">
           {projects.length === 0 ? (
-            <div className="p-12 text-center">
+            <div className="p-6 sm:p-12 text-center">
               <div
                 className="w-16 h-16 mx-auto mb-4 bg-zinc-200 text-zinc-600 dark:bg-zinc-800
                          dark:text-zinc-500 rounded-full flex items-center justify-center"
@@ -82,19 +82,19 @@ const ProjectOverview = () => {
                 <Link
                   key={project.id}
                   to={`/projectsDetail?id=${project.id}&tab=tasks`}
-                  className="block p-6 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 transition-colors"
+                  className="block p-4 sm:p-6 hover:bg-zinc-50 dark:hover:bg-zinc-900/50 transition-colors"
                 >
-                  <div className="flex items-start justify-between mb-3">
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-zinc-800 dark:text-zinc-300 mb-1">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-0 mb-3">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-semibold text-zinc-800 dark:text-zinc-300 mb-1 text-sm sm:text-base">
                         {project.name}
                       </h3>
-                      <p className="text-sm text-zinc-600 dark:text-zinc-400 line-clamp-2 ">
+                      <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 line-clamp-2">
                         {project.description || "No description"}
                       </p>
                     </div>
 
-                    <div className="flex items-center gap-2 ml-4">
+                    <div className="flex items-center gap-2">
                       <span
                         className={`text-xs px-2 py-1 rounded ${statusColors[project.status]}`}
                       >
@@ -108,8 +108,8 @@ const ProjectOverview = () => {
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between text-xs text-zinc-500 mb-3">
-                    <div className="flex items-center gap-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4 text-xs text-zinc-500 mb-3">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-4">
                       {project.members?.length > 0 && (
                         <div className="flex items-center gap-1">
                           <UsersIcon className="w-3 h-3" />
@@ -127,9 +127,7 @@ const ProjectOverview = () => {
 
                   <div className="space-y-2">
                     <div className="flex items-center justify-between text-xs">
-                      <span className="text-zinc-500">
-                        Progress
-                      </span>
+                      <span className="text-zinc-500">Progress</span>
                       <span className="text-zinc-600 dark:text-zinc-400">
                         {project.progress || 0}%
                       </span>
