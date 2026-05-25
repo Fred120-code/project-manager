@@ -43,7 +43,7 @@ const Navbar = ({ setIsSidebarOpen }) => {
         </div>
 
         {/* Right Secton */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 m-5">
           {/* THeme Toggle */}
           <button
             onClick={() => dispatch(toogleTheme())}
