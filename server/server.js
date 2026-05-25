@@ -52,14 +52,7 @@ const apiLimiter = createUserLimiter(
   30,
   "Trop de requêtes, veuillez réessayer plus tard.",
 );
-
-// // Per-user auth limiter: 5 requests per 15 minutes per user
-// const authLimiter = createUserLimiter(
-//   15 * 60 * 1000,
-//   5,
-//   "Trop de tentatives, veuillez réessayer dans 15 minutes.",
-// );
-
+ 
 app.use(express.json());
 app.use(
   cors({
