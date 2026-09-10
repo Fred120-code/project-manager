@@ -105,7 +105,8 @@ const CreateTaskDialog = ({ showCreateTask, setShowCreateTask, projectId }) => {
                 setFormData({ ...formData, description: e.target.value })
               }
               placeholder="Describe the task"
-              className="w-full rounded dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 px-3 py-2 text-zinc-900 dark:text-zinc-200 text-sm mt-1 h-24 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 
+              px-3 py-2 text-zinc-900 dark:text-zinc-200 text-sm mt-1 h-24 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
@@ -118,7 +119,8 @@ const CreateTaskDialog = ({ showCreateTask, setShowCreateTask, projectId }) => {
                 onChange={(e) =>
                   setFormData({ ...formData, type: e.target.value })
                 }
-                className="w-full rounded dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 px-3 py-2 text-zinc-900 dark:text-zinc-200 text-sm mt-1"
+                className="w-full rounded dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700
+                 px-3 py-2 text-zinc-900 dark:text-zinc-200 text-sm mt-1"
               >
                 <option value="BUG">Bug</option>
                 <option value="FEATURE">Feature</option>
@@ -135,7 +137,8 @@ const CreateTaskDialog = ({ showCreateTask, setShowCreateTask, projectId }) => {
                 onChange={(e) =>
                   setFormData({ ...formData, priority: e.target.value })
                 }
-                className="w-full rounded dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 px-3 py-2 text-zinc-900 dark:text-zinc-200 text-sm mt-1"
+                className="w-full rounded dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 
+                px-3 py-2 text-zinc-900 dark:text-zinc-200 text-sm mt-1"
               >
                 <option value="LOW">Low</option>
                 <option value="MEDIUM">Medium</option>
@@ -153,7 +156,8 @@ const CreateTaskDialog = ({ showCreateTask, setShowCreateTask, projectId }) => {
                 onChange={(e) =>
                   setFormData({ ...formData, assigneeId: e.target.value })
                 }
-                className="w-full rounded dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 px-3 py-2 text-zinc-900 dark:text-zinc-200 text-sm mt-1"
+                className="w-full rounded dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 
+                px-3 py-2 text-zinc-900 dark:text-zinc-200 text-sm mt-1"
               >
                 <option value="">Unassigned</option>
                 {teamMembers.map((member) => (
@@ -171,7 +175,8 @@ const CreateTaskDialog = ({ showCreateTask, setShowCreateTask, projectId }) => {
                 onChange={(e) =>
                   setFormData({ ...formData, status: e.target.value })
                 }
-                className="w-full rounded dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 px-3 py-2 text-zinc-900 dark:text-zinc-200 text-sm mt-1"
+                className="w-full rounded dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 
+                px-3 py-2 text-zinc-900 dark:text-zinc-200 text-sm mt-1"
               >
                 <option value="TODO">To Do</option>
                 <option value="IN_PROGRESS">In Progress</option>
@@ -192,7 +197,8 @@ const CreateTaskDialog = ({ showCreateTask, setShowCreateTask, projectId }) => {
                   setFormData({ ...formData, due_date: e.target.value })
                 }
                 min={new Date().toISOString().split("T")[0]}
-                className="w-full rounded dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 px-3 py-2 text-zinc-900 dark:text-zinc-200 text-sm mt-1"
+                className="w-full rounded dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 px-3
+                 py-2 text-zinc-900 dark:text-zinc-200 text-sm mt-1"
               />
             </div>
             {formData.due_date && (
@@ -207,14 +213,16 @@ const CreateTaskDialog = ({ showCreateTask, setShowCreateTask, projectId }) => {
             <button
               type="button"
               onClick={() => setShowCreateTask(false)}
-              className="rounded border border-zinc-300 dark:border-zinc-700 px-5 py-2 text-sm hover:bg-zinc-100 dark:hover:bg-zinc-800 transition"
+              className="rounded border border-zinc-300 dark:border-zinc-700 px-5 py-2 text-sm
+               hover:bg-zinc-100 dark:hover:bg-zinc-800 transition"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting}
-              className="rounded px-5 py-2 text-sm bg-gradient-to-br from-blue-500 to-blue-600 hover:opacity-90 text-white dark:text-zinc-200 transition"
+              className="rounded px-5 py-2 text-sm bg-gradient-to-br from-blue-500 to-blue-600 
+              hover:opacity-90 text-white dark:text-zinc-200 transition"
             >
               {isSubmitting ? "Creating..." : "Create Task"}
             </button>
