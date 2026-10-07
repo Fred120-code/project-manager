@@ -23,7 +23,8 @@ const Dashboard = () => {
         </div>
         <button
           onClick={() => setIsDialogOpen(true)}
-          className="w-full sm:w-auto flex items-center justify-center sm:justify-start gap-2 px-4 sm:px-5 py-2 text-sm rounded bg-gradient-to-br from-blue-500 
+          className="w-full sm:w-auto flex items-center justify-center sm:justify-start gap-2 px-4 
+          sm:px-5 py-2 text-sm rounded bg-gradient-to-br from-blue-500 
         to-blue-600 text-white hover:opacity-90 transition whitespace-nowrap"
         >
           <Plus size={16} /> New Project
