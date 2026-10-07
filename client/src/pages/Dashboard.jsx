@@ -10,6 +10,7 @@ import { useUser } from "@clerk/react";
 const Dashboard = () => {
   const { user } = useUser();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-6 mb-6">
@@ -23,7 +24,8 @@ const Dashboard = () => {
         </div>
         <button
           onClick={() => setIsDialogOpen(true)}
-          className="w-full sm:w-auto flex items-center justify-center sm:justify-start gap-2 px-4 sm:px-5 py-2 text-sm rounded bg-gradient-to-br from-blue-500 
+          className="w-full sm:w-auto flex items-center justify-center sm:justify-start gap-2 px-4 
+          sm:px-5 py-2 text-sm rounded bg-gradient-to-br from-blue-500 
         to-blue-600 text-white hover:opacity-90 transition whitespace-nowrap"
         >
           <Plus size={16} /> New Project

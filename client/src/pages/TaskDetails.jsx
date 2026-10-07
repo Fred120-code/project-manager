@@ -89,7 +89,7 @@ const TaskDetails = () => {
       fetchComments();
       const interval = setInterval(() => {
         fetchComments();
-      }, 1000);
+      }, 100000);
       return () => clearInterval(interval);
     }
   }, [task, taskId]);
